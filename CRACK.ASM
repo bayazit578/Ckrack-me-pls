@@ -53,8 +53,8 @@ Main:       @@start:
 start_text      db 'Enter the password:$'
 failure_text    db CRLF, 'You are gay, try again', CRLF, '$'
 success_text    db CRLF, 'Nice$'
-input           db 10, 4 dup (0), '$'
-password        db 'hui$'
+input           db 18, 10 dup (0)
+password        db 'password$'
 checking_addr   dw 0
 address         dw 0
 

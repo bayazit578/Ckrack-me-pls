@@ -29,35 +29,20 @@ Main:
 
 Handler21h  proc
             cmp  ah, 0ah
-            je   @@check_password
-
-            cmp  ah, 09h
-            jne  @@old
-            cmp  cs:[Allow_access], 1
-            je   @@display_access
-            cmp  cs:[Allow_access], 2
-            je   @@terminate
+            je   @@hack
 
         @@old:
             jmp  cs:[OldHandler21h]
 
-        @@terminate:
-            mov  ax, 4c00h
-            jmp  @@old
-
-        @@check_password:
-            mov  cs:[Allow_access], 1
-            jmp  @@old
-
-        @@display_access:
-            mov  dx, 0169h
-            mov  cs:[Allow_access], 2
+        @@hack:
+            push bp
+            mov  bp, sp
+            mov  word ptr ss:[bp + 2], 122h
+            pop  bp
             jmp  @@old
 Handler21h  endp
 
 EOP:
 
 OldHandler21h   dd 0
-Allow_access    db 0
-
 end     Main
