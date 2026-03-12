@@ -29,21 +29,25 @@ mPASSWORD_CHECK MACRO
 ENDM
 
 CRLF            equ 0ah, 0dh
+CR              equ 0ah
 
 Main:       @@start:
                 mDISPLAY_TEXT start_text
 
-                mov ah, 0ah
-                lea dx, input
-                int 21h
+                mov  ah, 0ah
+                lea  dx, input
+                int  21h
 
-                mPASSWORD_CHECK
-                jne @@failure
-                jmp @@success
+                ; mPASSWORD_CHECK
+                xor  ax, ax
+                call hash_func
+                cmp  ax, word ptr password_hash
+                jne  @@failure
+                jmp  @@success
 
             @@failure:
                 mDISPLAY_TEXT failure_text
-                jmp @@start
+                jmp  @@start
 
             @@success:
                 mDISPLAY_TEXT success_text
@@ -57,18 +61,20 @@ Main:       @@start:
 ;
 ; Assum: 
 ;
-; Exit:  AX - exit_hash
+; Exit:  AX - password hash
 ;
 ; Destr: CX, SI 
 ;-----------------------------------------------------------
 
 hash_func       proc
-                mov  ax, input
+                lea  bx, input
+                add  bx, 2
                 mov  cx, 8
 
-                mov  si, 2
-            @@loop_hash
-                xor  ax, input + si
+                mov  si, 0
+            @@loop_hash:
+                xor  al, [bx + si]
+                shl  ax, 1
                 inc  si
                 loop @@loop_hash
                 ret
@@ -78,7 +84,8 @@ start_text      db 'Enter the password:$'
 failure_text    db CRLF, 'You are gay, try again', CRLF, '$'
 success_text    db CRLF, 'Nice$'
 input           db 18, 10 dup (0)
-password        db 'password$'
+password_hash   dw 5728h
+password        db 'password', CR
 checking_addr   dw 0
 address         dw 0
 

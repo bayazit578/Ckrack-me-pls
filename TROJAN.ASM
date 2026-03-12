@@ -56,7 +56,7 @@ handler21h  proc
 
             push bp
             mov  bp, sp
-            mov  word ptr ss:[bp + 2], 122h
+            mov  word ptr ss:[bp + 2], 119h
             pop  bp
             jmp  @@old
 handler21h  endp
