@@ -50,6 +50,30 @@ Main:       @@start:
 
                 mTERMINATE
 
+;-----------------------------------------------------------
+; Descr: hash_func calculates the hash for the string 
+;
+; Entry: DS:SI -> string with the entered password
+;
+; Assum: 
+;
+; Exit:  AX - exit_hash
+;
+; Destr: CX, SI 
+;-----------------------------------------------------------
+
+hash_func       proc
+                mov  ax, input
+                mov  cx, 8
+
+                mov  si, 2
+            @@loop_hash
+                xor  ax, input + si
+                inc  si
+                loop @@loop_hash
+                ret
+hash_func       endp
+
 start_text      db 'Enter the password:$'
 failure_text    db CRLF, 'You are gay, try again', CRLF, '$'
 success_text    db CRLF, 'Nice$'
