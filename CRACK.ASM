@@ -85,7 +85,6 @@ failure_text    db CRLF, 'You are gay, try again', CRLF, '$'
 success_text    db CRLF, 'Nice$'
 input           db 18, 10 dup (0)
 password_hash   dw 5728h
-; penis           db 'torvalds'
 checking_addr   dw 0
 address         dw 0
 
