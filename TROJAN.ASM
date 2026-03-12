@@ -4,7 +4,7 @@ model tiny
 .code
 org 100h
 
-ETALON_HASH equ 10111001b
+ETALON_HASH equ 11110100b
 
 Main:   
             mov  ax, 0
