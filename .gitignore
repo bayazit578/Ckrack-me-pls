@@ -1,4 +1,6 @@
 *.COM
+!CRCK_ME1.COM
+!CRCK_ME2.COM
 *.LST
 *.MAP
 *.OBJ
