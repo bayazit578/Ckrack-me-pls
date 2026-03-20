@@ -1,0 +1,8 @@
+#pragma once
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+bool patch_file(FILE* input);
